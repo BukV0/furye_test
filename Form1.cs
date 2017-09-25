@@ -61,9 +61,26 @@ namespace FourierTransform
             Complex[] lComplex = new Complex[reader.lDataList.Count];
             for (int i = 0; i < reader.lDataList.Count; i++)
             {
-                lComplex[i] = reader.lDataList[i] / short.MaxValue;
+                lComplex[i] = (double)reader.lDataList[i] / short.MaxValue;
+                if(i % 1000 == 0) Console.Write(lComplex[i].Magnitude + " ");
             }
-             
+            Console.WriteLine();
+            lComplex = Furier.DPF(lComplex);
+            lComplex = Furier.translate(lComplex);
+            lComplex = Furier.DPF(lComplex);
+            double max = -1;
+            for (int i = 0; i < lComplex.Count(); i++)
+            {
+                if (lComplex[i].Magnitude > max)
+                {
+                    max = lComplex[i].Magnitude;
+                }
+            }
+            for(int i = 0; i < lComplex.Count(); i++)
+            {
+                reader.lDataList[i] = (short)(lComplex[i].Magnitude / max * short.MaxValue);
+                if (i % 1000 == 0) Console.Write(lComplex[i].Magnitude + " ");
+            }
         }
     }
 }

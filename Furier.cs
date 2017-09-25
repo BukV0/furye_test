@@ -9,7 +9,7 @@ namespace FourierTransform
 {
     class Furier
     {
-        public Complex[] translate(Complex[] tra)
+       static public Complex[] translate(Complex[] tra)
         {
             int N;
             N = tra.Length;
@@ -19,7 +19,7 @@ namespace FourierTransform
             }
             return tra;
         }
-        public Complex[] DPF(Complex[] enter)
+        static public Complex[] DPF(Complex[] enter)
         {
 
             int N;
