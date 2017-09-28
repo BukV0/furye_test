@@ -30,9 +30,23 @@ namespace FourierTransform
             public byte[] dataID; // "data"
             public uint dataSize; // 波形データのバイト数
         }
+        override public String ToString()
+        {
+            return "riffID: " + Header.riffID +
+                "\nsize: " + Header.size +
+                "\nchannels: " + Header.channels +
+                "\nsample rate: " + Header.sampleRate + 
+                "\nbyte per second: " + Header.bytePerSec + 
+                "\ndata size: " + Header.dataSize;
+        }
         private  WavHeader Header = new WavHeader();
         public List<short> lDataList = new List<short>();
         public List<short> rDataList = new List<short>();
+
+        public uint getSampleRate()
+        {
+            return Header.sampleRate;
+        }
 
         public void read(String file)
         {
