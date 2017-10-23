@@ -20,3 +20,12 @@ C:\Users\User\Documents\Visual Studio 2015\Projects\FourierTransform\furye_test\
 C:\Users\User\Documents\Visual Studio 2015\Projects\FourierTransform\furye_test\obj\Debug\FourierTransform.Form1.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\FourierTransform\furye_test\obj\Debug\FourierTransform.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\FourierTransform\furye_test\obj\Debug\FourierTransform.csproj.GenerateResource.Cache
+C:\Users\Bochkarev\Documents\furye_test\bin\Debug\FourierTransform.exe.config
+C:\Users\Bochkarev\Documents\furye_test\bin\Debug\FourierTransform.exe
+C:\Users\Bochkarev\Documents\furye_test\bin\Debug\FourierTransform.pdb
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.csprojResolveAssemblyReference.cache
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.Form1.resources
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.Properties.Resources.resources
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.csproj.GenerateResource.Cache
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.exe
+C:\Users\Bochkarev\Documents\furye_test\obj\Debug\FourierTransform.pdb

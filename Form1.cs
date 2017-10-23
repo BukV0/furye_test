@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Numerics;
 using System.Media;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
+//using System.Web.UI.DataVisualization.Charting;
 
 namespace FourierTransform
 {
@@ -33,7 +35,12 @@ namespace FourierTransform
             reader = new WavReader ();
             reader.read(inputFile.Text);
 
+            fileHeader.Text = "File was loaded:\n" +
+                reader.ToString();
 
+            chart1.Series.Clear();
+            chart2.Series.Clear();
+            chart3.Series.Clear();
         }
 
         //write
@@ -56,30 +63,67 @@ namespace FourierTransform
         {
             for (int i = 0; i < reader.rDataList.Count; i++)
             {
-                reader.rDataList[i] = 0;
+                reader.lDataList[i] = 0;
             }
-            Complex[] lComplex = new Complex[reader.lDataList.Count];
-            for (int i = 0; i < reader.lDataList.Count; i++)
+            //Complex[] rComplex = new Complex[reader.getSampleRate()];
+            Complex[] rComplex = new Complex[32768];
+            for (int i = 0; i < rComplex.Length; i++)
             {
-                lComplex[i] = (double)reader.lDataList[i] / short.MaxValue;
-                if(i % 1000 == 0) Console.Write(lComplex[i].Magnitude + " ");
+                rComplex[i] = (double)reader.rDataList[i] / short.MaxValue;
+                if(i % 1000 == 0) Console.Write(rComplex[i].Magnitude + " ");
             }
             Console.WriteLine();
-            lComplex = Furier.DPF(lComplex);
-            lComplex = Furier.translate(lComplex);
-            lComplex = Furier.DPF(lComplex);
-            double max = -1;
-            for (int i = 0; i < lComplex.Count(); i++)
+
+            String s = "freq, Hz";
+            chart3.Series.Add(s);
+            chart3.Series[s].ChartType = SeriesChartType.Line;
+            for (int i = 0; i < rComplex.Length; i++)
             {
-                if (lComplex[i].Magnitude > max)
+                chart3.Series[s].Points.AddY(rComplex[i].Real);
+            }
+
+            rComplex = Furier.DPF(rComplex);
+
+            chart1.Series.Add(s);
+            chart1.Series[s].ChartType = SeriesChartType.Line;
+            for (int i = 0; i < 200; i++)
+            {
+                chart1.Series[s].Points.AddY(rComplex[i].Magnitude);
+            }
+            //rComplex = Furier.translate(rComplex);
+
+            for (int i = 0; i < rComplex.Count(); i++)
+            {
+                rComplex[i] = new Complex(rComplex[i].Real, -rComplex[i].Imaginary);
+            }
+
+            rComplex = Furier.DPF(rComplex);
+
+            for (int i = 0; i < rComplex.Count(); i++)
+            {
+                rComplex[i] = new Complex(rComplex[i].Real, -rComplex[i].Imaginary);
+                rComplex[i] /= rComplex.Count();
+            }
+
+            chart2.Series.Add(s);
+            chart2.Series[s].ChartType = SeriesChartType.Line;
+            for (int i = 0; i < rComplex.Length; i++)
+            {
+                chart2.Series[s].Points.AddY(rComplex[i].Real);
+            }
+
+            double max = -1;
+            for (int i = 0; i < rComplex.Count(); i++)
+            {
+                if (rComplex[i].Magnitude > max)
                 {
-                    max = lComplex[i].Magnitude;
+                    max = rComplex[i].Magnitude;
                 }
             }
-            for(int i = 0; i < lComplex.Count(); i++)
+            for(int i = 0; i < rComplex.Count(); i++)
             {
-                reader.lDataList[i] = (short)(lComplex[i].Magnitude / max * short.MaxValue);
-                if (i % 1000 == 0) Console.Write(lComplex[i].Magnitude + " ");
+                reader.rDataList[i] = (short)(rComplex[i].Real * short.MaxValue);
+                if (i % 1000 == 0) Console.Write(rComplex[i].Magnitude + " ");
             }
         }
     }

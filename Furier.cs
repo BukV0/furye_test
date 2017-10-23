@@ -35,8 +35,8 @@ namespace FourierTransform
             Complex[] odd = new Complex[N / 2];
             for (int i = 0; i < N - 1; i += 2)
             {
-                odd[i / 2] = enter[i];
-                even[i / 2] = enter[i + 1];
+                odd[i / 2] = enter[i + 1];
+                even[i / 2] = enter[i];
             }
             even = DPF(even);
             odd = DPF(odd);
